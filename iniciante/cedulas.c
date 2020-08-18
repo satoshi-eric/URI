@@ -1,37 +1,42 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-int main(){
-    int cedula, n100, n50, n20, n10, n5, n2, n1, resto100, resto50, resto20, resto10, resto5, resto2;
-    scanf("%i", &cedula);
+/*
+ Leia um valor de ponto flutuante com duas casas decimais. Este valor representa um valor monetário. A seguir, calcule o menor número de notas e moedas possíveis no qual o valor pode ser decomposto. As notas consideradas são de 100, 50, 20, 10, 5, 2. As moedas possíveis são de 1, 0.50, 0.25, 0.10, 0.05 e 0.01. A seguir mostre a relação de notas necessárias.\    
+*/
 
-    //calculo da quantidade de cedulas para cada valor de cedula(100, 50, 20, 10, 5, 2, 1)
-    n100 = cedula/100;
-    resto100 = cedula%100;
+// Entrada
+/*
+O arquivo de entrada contém um valor de ponto flutuante N (0 ≤ N ≤ 1000000.00).
+*/
 
-    n50 = resto100/50;
-    resto50 = resto100%50;
+// Saída
+/*
+Imprima a quantidade mínima de notas e moedas necessárias para trocar o valor inicial, conforme exemplo fornecido.
+*/
 
-    n20 = resto50/20;
-    resto20 = resto50%20;
+int *get_banknotes_amount(float money)
+{
+    static int banknotes_amount[6] = {0, 0, 0, 0, 0, 0};
+    double banknotes_values[6] = {100, 50, 20, 10, 5, 2};
+    for(int i = 0; i < 6; i++)
+    {   
+        printf("%f\n", money);
+        if((money - banknotes_values[i]) >= 0)
+        {
+            money -= banknotes_values[i];
+            banknotes_amount[i]++;
+            printf("%f", money);
+        }
+    }
+    return banknotes_amount;
+}
 
-    n10 = resto20/10;
-    resto10 = resto20%10;
+int main()
+{
+    float value;
+    scanf("%f", &value);
 
-    n5 = resto10/5;
-    resto5 = resto10%5;
-
-    n2 = resto5/2;
-    resto2 = resto5%2;
-
-    n1 = resto2/1;
-
-    printf("%i\n", cedula);
-    printf("%i nota(s) de R$ 100,00\n", n100);
-    printf("%i nota(s) de R$ 50,00\n", n50);
-    printf("%i nota(s) de R$ 20,00\n", n20);
-    printf("%i nota(s) de R$ 10,00\n", n10);
-    printf("%i nota(s) de R$ 5,00\n", n5);
-    printf("%i nota(s) de R$ 2,00\n", n2);
-    printf("%i nota(s) de R$ 1,00\n", n1);
-    return 0;
+    int *banknotes_amount = get_banknotes_amount(value);
+    printf("%i", banknotes_amount[0]);
 }
