@@ -1,68 +1,43 @@
-valores = [100, 50, 20, 10, 5, 2, 1, 0.5, 0.25, 0.10, 0.5, 0.1]
-notas = [0, 0, 0, 0, 0, 0]
-moedas = [0, 0, 0, 0, 0, 0]
+# Link for problem: https://www.beecrowd.com.br/judge/pt/problems/view/1018
 
-entrada = float(input(''))
+def print_cedules(notes: list, coins: list, notes_values: list, coins_values: list) -> None:
+    """Prints the cedules and coins."""
+    text = ''
+    text += 'NOTAS:\n'
+    for note, note_value in zip(notes, notes_values):
+        text += f'{note} nota(s) de R$ {note_value:.2f}\n'
+    text += 'MOEDAS:\n'
+    for coin, coin_value in zip(coins, coins_values):
+        text += f'{coin} moeda(s) de R$ {coin_value:.2f}\n'
+        
+    print(text, end='')
 
-while entrada >= 100:
-    notas[0] += 1
-    entrada -= 100
+def calculate_change(amount: int, notes_values: list, coins_values: list) -> list:
+    """Calculates the cedules and coins with a given amount."""
+    notes = []
+    coins = []
+    
+    for note_value in notes_values:
+        exchange = amount / note_value
+        amount = round(amount % note_value, 2)
+        notes.append(int(exchange))
 
-while entrada >= 50:
-    notas[1] += 1
-    entrada -= 50
+    for coin_value in coins_values:
+        exchange = amount / coin_value
+        amount = round(amount % coin_value, 2)
+        coins.append(int(exchange))
 
-while entrada >= 20:
-    notas[2] += 1
-    entrada -= 20
+    return notes, coins
 
-while entrada >= 10:
-    notas[3] += 1
-    entrada -= 10
+def main():
+    try:
+        value = float(input())
+        notes_values = [100, 50, 20, 10, 5, 2]
+        coins_values = [1, 0.50, 0.25, 0.10, 0.05, 0.01]
+        notes, coins = calculate_change(value, notes_values, coins_values)
+        print_cedules(notes, coins, notes_values, coins_values)
+    except ValueError:
+        print('ValueError: Please, enter a valid number.')
 
-while entrada >= 5:
-    notas[4] += 1
-    entrada -= 5
-
-while entrada >= 2:
-    notas[5] += 1
-    entrada -= 2
-
-while entrada >= 1:
-    moedas[0] += 1
-    entrada -= 1
-
-while entrada >= 0.5:
-    moedas[1] += 1;
-    entrada -= 0.5
-
-while entrada >= 0.25:
-    moedas[2] += 1
-    entrada -= 0.25
-
-while entrada >= 0.10:
-    moedas[3] += 1
-    entrada -= 0.1
-
-while entrada >= 0.05:
-    moedas[4] += 1
-    entrada -= 0.05
-
-while entrada >= 0.01:
-    moedas[5] += 1
-    entrada -= 0.01
-
-print('NOTAS:')
-print('{} nota(s) de R$100.00' .format(notas[0]))
-print('{} nota(s) de R$50.00' .format(notas[1]))
-print('{} nota(s) de R$20.00' .format(notas[2]))
-print('{} nota(s) de R$10.00' .format(notas[3]))
-print('{} nota(s) de R$5.00' .format(notas[4]))
-print('{} nota(s) de R$2.00' .format(notas[5]))
-print('MOEDAS:')
-print('{} moeda(s) de R$1.00' .format(moedas[0]))
-print('{} moeda(s) de R$0.50' .format(moedas[1]))
-print('{} moeda(s) de R$0.25' .format(moedas[2]))
-print('{} moeda(s) de R$0.10' .format(moedas[3]))
-print('{} moeda(s) de R$0.05' .format(moedas[4]))
-print('{} moeda(s) de R$0.01' .format(moedas[5]))
+if __name__ == "__main__":
+    main()
