@@ -1,39 +1,33 @@
-A = float(input())
-B = float(input())
-C = float(input())
+def main():
+    lados = list(map(float, input().split()))
+    lados.sort(reverse=True)
+    A, B, C = lados
 
-nums = [A, B, C]
-nums.sort(reverse=True)
+    condicoes = [
+        A >= B + C,
+        A**2 == B**2 + C**2,
+        A**2 > B**2 + C**2,
+        A**2 < B**2 + C**2,
+        A == B == C,
+        A == B != C or A != B == C or A == C != B
+    ]
 
-A = nums[0]
-B = nums[1]
-C = nums[2]
+    tipos_triangulos = [
+        'NAO FORMA TRIANGULO',
+        'TRIANGULO RETANGULO',
+        'TRIANGULO OBTUSANGULO',
+        'TRIANGULO ACUTANGULO',
+        'TRIANGULO EQUILATERO',
+        'TRIANGULO ISOSCELES'
+    ]
 
-condicoes = [
-    A >= B + C,
-    A**2 == B**2 + C**2,
-    A**2 > B**2 + C**2,
-    A**2 < B**2 + C**2,
-    A == B == C,
-    A == B != C or A != B == C or A == C != B
-]
+    if condicoes[0]:
+        print(tipos_triangulos[0])
+    else:
+        for i, condicao in enumerate(condicoes):
+            if condicao:
+                print(tipos_triangulos[i])
+        
 
-tipos_triangulos = [
-    'NAO FORMA TRIANGULO',
-    'TRIANGULO RETANGULO',
-    'TRIANGULO OBTUSANGULO',
-    'TRIANGULO ACUTANGULO',
-    'TRIANGULO EQUILATERO',
-    'TRIANGULO ISOSCELES'
-]
-
-index_classificacoes = []
-for i in range(len(condicoes)):
-    if condicoes[i] == True:
-        index_classificacoes.append(i)
-
-if 0 in index_classificacoes:
-    print(tipos_triangulos[0])
-else:
-    for index in index_classificacoes:
-        print(tipos_triangulos[index])
+if __name__ == "__main__":
+    main()
